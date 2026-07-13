@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>This Clever Hack Can Save You up to 60% on Hotels</title>
+<meta name="description" content="Most people book hotels the expensive way. Here's the booking hack savvy travelers use to pay less for the exact same rooms.">
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #444;
+    --link: #0276b1;
+    --link-hover: #015a88;
+    --navy: #013d5b;
+    --cta: #0276b1;
+    --cta-hover: #015a88;
+    --rule: #e6e6e6;
+    --bg-soft: #f5f8fa;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Floating masthead */
+  .masthead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid var(--rule);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    padding: 12px 20px;
+  }
+  .masthead-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .masthead .logo {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+  }
+  .masthead .logo span { color: var(--link); }
+  .masthead .banner-cta {
+    background: var(--cta);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+  .masthead .banner-cta:hover { background: var(--cta-hover); }
+  @media (max-width: 520px) {
+    .masthead .logo { font-size: 18px; }
+    .masthead .banner-cta { font-size: 13px; padding: 9px 14px; }
+  }
+
+  /* Article column */
+  .article {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 28px 20px 40px;
+  }
+  h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .byline {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .article p {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .article p strong { color: var(--ink); }
+  .article a { color: var(--link); font-weight: 600; text-decoration: none; }
+  .article a:hover { color: var(--link-hover); text-decoration: underline; }
+  h2 {
+    font-size: 24px;
+    letter-spacing: -0.3px;
+    margin: 34px 0 16px;
+  }
+
+  /* Hero images */
+  .hero-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 6px 0 32px;
+  }
+  .hiw-mobile { display: none; }
+  @media (max-width: 560px) {
+    .hiw-desktop { display: none; }
+    .hiw-mobile { display: block; margin: 6px 0 16px; }
+  }
+
+  /* Hero deal cards */
+  .hero-deals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 6px 0 32px;
+  }
+  .deal-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+  }
+  .deal-card.featured { border: 2px solid #2a9d8f; }
+  .deal-img { position: relative; height: 128px; }
+  .deal-img > svg { display: block; width: 100%; height: 100%; }
+  .badge-l {
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.6);
+    color: #fff; font-size: 10px; font-weight: 700;
+    padding: 3px 9px; border-radius: 999px;
+    backdrop-filter: blur(2px);
+  }
+  .badge-r {
+    position: absolute; top: 8px; right: 8px;
+    background: #0f6f74; color: #fff; font-size: 10px; font-weight: 800;
+    padding: 4px 9px; border-radius: 999px;
+  }
+  .deal-overlay {
+    position: absolute; left: 10px; right: 10px; bottom: 8px; color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+  .deal-overlay .loc { font-size: 10.5px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+  .deal-overlay .name { font-size: 14px; font-weight: 800; margin-top: 2px; letter-spacing: -0.2px; }
+  .deal-body { padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+  .deal-hotel { font-size: 12.5px; font-weight: 800; color: #1c2430; line-height: 1.35; }
+  .deal-rating { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #8a93a0; }
+  .rate-pill { background: #e2f4f0; color: #0f8a7d; font-weight: 800; font-size: 11px; padding: 2px 9px; border-radius: 999px; }
+  .deal-meta {
+    border: 1px solid #eee; border-radius: 8px; padding: 7px 9px;
+    font-size: 10.5px; color: #3c4657; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .deal-meta span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .save-box {
+    border: 1px solid #bfe3da; background: #eef9f4; color: #16a34a;
+    border-radius: 10px; text-align: center; font-size: 17px; font-weight: 800;
+    padding: 11px 6px;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+  }
+  .member-line { text-align: center; font-size: 11.5px; font-weight: 800; color: #0f8a7d; }
+  .fine-line { text-align: center; font-size: 10.5px; color: #8a93a0; margin-top: -5px; }
+  .deal-btn {
+    margin-top: auto;
+    display: block; text-align: center;
+    background: linear-gradient(90deg, #0e7c86, #0a5f68);
+    color: #fff !important; font-size: 13px; font-weight: 800;
+    padding: 11px 6px; border-radius: 999px;
+    text-decoration: none !important;
+  }
+  .deal-btn:hover { background: linear-gradient(90deg, #0a6a73, #084f57); }
+  @media (max-width: 560px) {
+    .hero-deals { grid-template-columns: 1fr; }
+    .deal-img { height: 160px; }
+  }
+
+  /* Hero comparison table */
+  .hero-compare {
+    margin: 6px 0 34px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .compare-grid {
+    min-width: 540px;
+    display: grid;
+    grid-template-columns: 1.45fr 0.8fr 1.1fr 0.95fr 0.9fr;
+    align-items: center;
+  }
+  .compare-grid .c {
+    padding: 16px 6px;
+    text-align: center;
+    min-width: 0;
+  }
+  .compare-grid .c.provider { text-align: left; padding-left: 4px; }
+  .compare-grid .head {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #9aa3ad;
+    padding: 8px 6px 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-grid .row-line { border-bottom: 1px solid #eee; }
+  .listed { font-size: 16px; font-weight: 600; color: #5b6470; }
+  .fee-pill {
+    display: inline-block;
+    background: #fdeed3;
+    color: #c9740a;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+  .fee-note { font-size: 11px; color: #9aa3ad; margin-top: 5px; line-height: 1.3; }
+  .total { font-size: 17px; font-weight: 800; color: #2d3748; }
+  .diff { font-size: 16px; font-weight: 800; color: #e11d48; }
+
+  /* provider logo marks */
+  .mark { display: inline-flex; align-items: center; gap: 8px; }
+  .mark .sq {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .mark .name { font-size: 15px; font-weight: 800; color: #1c2430; }
+  .mark .name .tld-red { color: #d63b2f; }
+  .billing-chip {
+    background: #0b3694; color: #fff; font-weight: 800; font-size: 13px;
+    padding: 6px 10px; border-radius: 7px;
+    white-space: nowrap;
+  }
+  .billing-chip span { color: #f5b70a; }
+
+  /* TravelHack winner row */
+  .th-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.45fr 0.8fr 1.1fr 0.95fr 0.9fr;
+    align-items: center;
+    background: #edf8f5;
+    border: 1px solid #bfe3da;
+    border-radius: 16px;
+    margin-top: 12px;
+  }
+  .th-row .c { min-width: 0; }
+  .th-logo { display: inline-flex; align-items: center; gap: 7px; }
+  .th-logo svg { width: 21px; height: 26px; flex-shrink: 0; }
+  .th-logo .th-name { font-size: 15px; font-weight: 800; color: #1c2430; letter-spacing: -0.2px; white-space: nowrap; }
+  .th-logo .th-name b { color: #2a9d8f; font-weight: 800; }
+  .th-logo .tag { display: block; font-size: 7.5px; letter-spacing: 0.3px; color: #5b6470; font-weight: 600; margin-top: 1px; white-space: nowrap; }
+  .zero-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #d7ede7; color: #2a9d8f;
+    font-size: 13px; font-weight: 800;
+    padding: 5px 12px; border-radius: 999px;
+  }
+  .th-total { font-size: 19px; font-weight: 800; color: #3aa99f; }
+
+  /* Product mockup frames */
+  .shot {
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 8px 0 26px;
+  }
+  .shot svg { display: block; width: 100%; height: auto; }
+  .caption {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    margin-top: -16px;
+    margin-bottom: 28px;
+  }
+
+  /* CTA button */
+  .cta-wrap { text-align: center; margin: 34px 0; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--cta);
+    color: #fff !important;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 38px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: background .15s;
+  }
+  .cta-btn:hover { background: var(--cta-hover); }
+  .cta-sub { font-size: 13px; color: #999; margin-top: 10px; }
+
+  /* Trust bar */
+  .trust {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding: 28px 20px;
+    margin: 10px 0 0;
+    text-align: center;
+  }
+  .trust .stat b { display: block; font-size: 24px; color: var(--navy); }
+  .trust .stat span { font-size: 13px; color: #888; }
+
+  /* Review stars */
+  .stars-block { text-align: center; margin: 4px 0 10px; }
+  .stars-block .stars {
+    color: #fbbf24;
+    font-size: 32px;
+    letter-spacing: 6px;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .stars-block .stars-note {
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* Press mentions */
+  .press {
+    text-align: center;
+    padding: 30px 20px 8px;
+  }
+  .press .press-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b3bac2;
+  }
+  .press-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    color: #8a93a0;
+  }
+  .press-logos .p-forbes { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 23px; }
+  .press-logos .p-fortune { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 18px; letter-spacing: 3px; }
+  .press-logos .p-usat { font-weight: 900; font-size: 18px; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 7px; }
+  .press-logos .p-usat i { width: 16px; height: 16px; border-radius: 50%; background: #8a93a0; display: inline-block; }
+  .press-logos .p-mash { font-weight: 800; font-size: 21px; letter-spacing: -0.5px; }
+  @media (max-width: 520px) { .press-logos { gap: 22px; } }
+
+  footer {
+    text-align: center;
+    padding: 28px 20px 44px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.8;
+  }
+  footer a { color: #777; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 27px; }
+    .article p { font-size: 17px; }
+    .trust { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="logo" href="#">The Savvy<span>Traveler</span></a>
+    <a class="banner-cta" href="https://travelhack.global/" rel="sponsored">Start Free Trial</a>
+  </div>
+</header>
+
+<main class="article">
+  <h1>This Clever Hack Can Save You up to 60% on Hotels</h1>
+  <p class="byline">Travel &nbsp;·&nbsp; 3 min read</p>
+
+  <img class="hero-img" src="images/hero-deals.png" alt="Member-exclusive hotel deals in Cancun, Paris and Santorini with savings of 34% to 41%">
+
+  <p>If you're still booking hotels on the big public travel sites, you might as well be leaving money on the nightstand.</p>
+
+  <p>Here's the thing most travelers never find out: hotels sell the <strong>exact same rooms at very different prices</strong> depending on the channel. The rate you see on the big booking sites is the public rate — the most expensive one. Behind it sits a layer of private, members-only pricing that hotels use to fill rooms without publicly discounting.</p>
+
+  <p>That's the layer <a href="https://travelhack.global/" rel="sponsored">TravelHack</a> unlocks. It's a membership app that plugs you straight into those private channels — over <strong>5.6 million properties in 180+ countries</strong>, often at up to 60% below the public price.</p>
+
+  <img class="hero-img" src="images/price-comparison.png" alt="Price comparison: other providers total up to $1,620 with hidden fees, TravelHack $785 with $0 fees">
+
+  <h2>Here's how it works:</h2>
+
+  <p>You search for your hotel in the app just like you would anywhere else. TravelHack shows you the public rate next to the member rate — same hotel, same room, same dates. You just pay less.</p>
+
+  <img class="hero-img hiw-desktop" src="images/how-it-works-desktop.png" alt="How it works in 4 steps: start your free trial, find your perfect stay, check other platforms, book with confidence">
+  <img class="hero-img hiw-mobile" src="images/how-it-works-mobile-1.png" alt="Step 1: start your 14-day free trial, no credit card required. Step 2: find your perfect stay among 5.6M+ properties at member-only rates">
+  <img class="hero-img hiw-mobile" src="images/how-it-works-mobile-2.png" alt="Step 3: check other platforms to verify your savings. Step 4: book with confidence, membership fee applies at first booking">
+
+  <p>The rates are real because the inventory is real. Hotels would rather quietly fill a room through a private channel than slash their public prices and devalue the brand. TravelHack members are simply the ones standing in the right line.</p>
+
+  <p>Over a year of normal travel, that adds up fast. Members report saving anywhere from a weekend getaway's worth to <strong>thousands of dollars annually</strong> — and frequent travelers and digital nomads routinely save $500–$1,500 a month on accommodation alone.</p>
+
+  <div class="shot">
+    <svg viewBox="0 0 620 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TravelHack savings summary notification">
+      <rect width="620" height="190" rx="14" fill="#ffffff"/>
+      <rect x="24" y="24" width="572" height="142" rx="12" fill="#f5f8fa" stroke="#e2e8ec"/>
+      <circle cx="80" cy="95" r="30" fill="#0a8f6c"/>
+      <path d="M66 95 L76 106 L96 84" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="132" y="80" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#141414">Booking confirmed — you saved $900</text>
+      <text x="132" y="106" font-family="Arial, sans-serif" font-size="14" fill="#888">4 nights · Grand Marina Resort · Member rate applied</text>
+      <text x="132" y="136" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0276b1">Total saved this year: $3,240</text>
+    </svg>
+  </div>
+  <p class="caption">The app tracks what you've saved on every booking.</p>
+
+  <p>And here's the part that removes the risk entirely: TravelHack comes with a <strong>14-day free trial — no credit card required</strong> — plus a Savings Promise. If your savings don't cover the membership, they refund it. There's literally no scenario where you come out behind.</p>
+
+  <p>So before you book your next trip at full price, take two minutes and check the member rate <a href="https://travelhack.global/" rel="sponsored">HERE</a>.</p>
+
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://travelhack.global/" rel="sponsored">Start Your 14-Day Free Trial</a>
+    <p class="cta-sub">No credit card required · Cancel anytime</p>
+  </div>
+
+  <div class="stars-block">
+    <div class="stars">★★★★★</div>
+    <p class="stars-note">Loved by thousands of members saving on every trip</p>
+  </div>
+</main>
+
+<section class="trust">
+  <div class="stat"><b>5.6M+</b><span>properties worldwide</span></div>
+  <div class="stat"><b>180+</b><span>countries covered</span></div>
+  <div class="stat"><b>Up to 60%</b><span>below public rates</span></div>
+  <div class="stat"><b>Savings Promise</b><span>or your money back</span></div>
+</section>
+
+<section class="press">
+  <div class="press-label">As seen in</div>
+  <div class="press-logos">
+    <span class="p-forbes">Forbes</span>
+    <span class="p-fortune">FORTUNE</span>
+    <span class="p-usat"><i></i>USA TODAY</span>
+    <span class="p-mash">mashable</span>
+  </div>
+</section>
+
+<footer>
+  This page contains sponsored content. Savings vary by property, dates, and demand.<br>
+  <a href="https://travelhack.global/" rel="sponsored">TravelHack</a> · <a href="#">Privacy Policy</a> · <a href="mailto:support@travelhack.global">Contact</a>
+</footer>
+
+</body>
+</html>

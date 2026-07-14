@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Travel Hack Works</title>
+<meta name="description" content="A quick walkthrough of how Travel Hack members book the same hotel rooms for less: search, compare both prices, and book with a Savings Promise behind it.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #022334;
+    --deep-teal: #045667;
+    --teal: #0795A0;
+    --sunset: #FA904E;
+    --cream: #F0E7D8;
+    --ink: #022334;
+    --ink-soft: #3b4d5c;
+    --rule: #e8e2d6;
+    --bg-soft: #faf7f1;
+    --gap-red: #e11d48;
+    --serif: "Iowan Old Style", Charter, Georgia, "Times New Roman", serif;
+    --sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg-soft);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Masthead */
+  .masthead {
+    background: var(--navy);
+    padding: 12px 20px;
+  }
+  .masthead-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo svg { width: 24px; height: 30px; flex-shrink: 0; }
+  .logo .word { display: flex; flex-direction: column; line-height: 1; }
+  .logo .name { color: #fff; font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo .name em { font-style: normal; font-weight: 400; }
+  .logo .name sup { font-size: 8px; font-weight: 400; vertical-align: super; }
+  .logo .tag { color: rgba(240,231,216,0.75); font-size: 7px; font-weight: 500; letter-spacing: 0.6px; margin-top: 3px; }
+  .step-count {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  /* Progress bar */
+  .progress {
+    height: 5px;
+    background: var(--rule);
+  }
+  .progress-fill {
+    height: 100%;
+    width: 12.5%;
+    background: var(--teal);
+    transition: width .35s ease;
+  }
+
+  /* Step card */
+  .stage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 22px 18px 34px;
+  }
+  .step {
+    display: none;
+    width: 100%;
+    max-width: 640px;
+    animation: rise .3s ease;
+  }
+  .step.active { display: block; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #8b8375;
+    cursor: pointer;
+    padding: 4px 0;
+    margin-bottom: 10px;
+  }
+  .back:hover { color: var(--deep-teal); }
+  .back[hidden] { visibility: hidden; display: inline-flex; }
+
+  .step-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 22px;
+  }
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    color: var(--deep-teal);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .step-badge b {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--navy);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.18;
+    letter-spacing: -0.2px;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .step p.lead {
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .step p.lead strong { color: var(--navy); font-weight: 600; }
+
+  /* Coded visuals */
+  .visual {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 22px;
+  }
+  .rate-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 6px;
+  }
+  .rate-row + .rate-row { border-top: 1px solid var(--rule); }
+  .rate-row .rate-label { font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
+  .rate-row .rate-label small { display: block; font-size: 12px; color: #8b8375; margin-top: 2px; }
+  .rate-row .rate-value {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .rate-row.member { background: #edf6f4; border: 1px solid #b5d9d6; border-radius: 12px; padding: 14px 16px; margin-top: 12px; }
+  .rate-row.member .rate-value { color: var(--deep-teal); }
+  .rate-gap {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .rate-gap b {
+    font-family: var(--mono);
+    font-size: 17px;
+    color: var(--gap-red);
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    padding: 11px 18px;
+  }
+  .chip svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .confirm-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 22px;
+  }
+  .confirm-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .confirm-icon svg { width: 26px; height: 26px; }
+  .confirm-title { font-size: 16.5px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .confirm-sub { font-size: 13.5px; color: #8b8375; }
+
+  .promise {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(100deg, #ddeeec, #edf6f4);
+    border: 1px solid #b5d9d6;
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 22px;
+  }
+  .promise-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(145deg, #4aa0ad, #176274);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .promise-icon svg { width: 24px; height: 24px; }
+  .promise-title { font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.25; margin-bottom: 4px; }
+  .promise-sub { font-size: 14.5px; color: #7d8b99; line-height: 1.5; }
+
+  .recap { list-style: none; margin-bottom: 24px; }
+  .recap li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .recap li strong { color: var(--navy); font-weight: 600; }
+  .recap .tick {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--teal);
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .recap .tick svg { width: 11px; height: 11px; }
+
+  /* Buttons */
+  .next-btn {
+    display: block;
+    width: 100%;
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 16.5px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(7,149,160,0.3);
+    transition: background .15s;
+  }
+  .next-btn:hover { background: var(--deep-teal); }
+  .btn-sub { text-align: center; font-size: 12.5px; color: #8b8375; margin-top: 10px; }
+  .footnote { font-size: 11.5px; color: #a39a89; line-height: 1.5; margin-top: 16px; }
+
+  footer {
+    background: var(--navy);
+    text-align: center;
+    padding: 18px 20px 22px;
+    font-size: 11px;
+    color: rgba(240,231,216,0.65);
+    line-height: 1.8;
+  }
+  footer a { color: rgba(240,231,216,0.9); }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 26px; }
+    .step p.lead { font-size: 15.5px; }
+    .rate-row .rate-value { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="logo" href="https://travelhack.global/">
+      <svg viewBox="0 0 26 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TravelHack logo">
+        <path d="M13 0C5.82 0 0 5.82 0 13c0 9.75 13 19 13 19s13-9.25 13-19C26 5.82 20.18 0 13 0z" fill="#ffffff"/>
+        <circle cx="13" cy="10.5" r="4.1" fill="#022334"/>
+        <path d="M13 12.5 L9.4 21.5 L16.6 21.5 Z" fill="#022334"/>
+      </svg>
+      <span class="word">
+        <span class="name">Travel<em>Hack</em><sup>™</sup></span>
+        <span class="tag">Spend Less, Travel More</span>
+      </span>
+    </a>
+    <span class="step-count" id="stepCount">1 / 8</span>
+  </div>
+</header>
+
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="stage">
+
+  <!-- Step 1: Hook -->
+  <section class="step active" data-step="1">
+    <button class="back" hidden>&#8592; Back</button>
+    <img class="step-img" src="images/hero-airplane-window.png" alt="View from an airplane window: the wing over a sea of clouds at sunset">
+    <h1>Save up to 60% on hotels worldwide*</h1>
+    <p class="lead"><strong>The same hotels. The same rooms.</strong> At half the price.</p>
+    <button class="next-btn" data-next>How does it work?</button>
+    <p class="footnote">*Savings compare member rates to public rates for the same hotel, room type, and dates. Savings vary by property, dates, and demand.</p>
+  </section>
+
+  <!-- Step 2: The reveal -->
+  <section class="step" data-step="2">
+    <button class="back" data-back>&#8592; Back</button>
+    <h1>Same room. Two prices.</h1>
+    <p class="lead">Hotels quietly fill rooms through <strong>private member channels</strong> instead of discounting publicly. Mainstream travel sites only ever show you the public rate. The most expensive one.</p>
+    <div class="visual">
+      <div class="rate-row">
+        <span class="rate-label">Public rate<small>4 nights, mainstream travel sites</small></span>
+        <span class="rate-value">$1,540+</span>
+      </div>
+      <div class="rate-row member">
+        <span class="rate-label">Member rate<small>Same hotel, same room, same dates</small></span>
+        <span class="rate-value">$785</span>
+      </div>
+      <p class="rate-gap">The difference: <b>$755</b> on one stay</p>
+    </div>
+    <button class="next-btn" data-next>So how do I get that rate?</button>
+  </section>
+
+  <!-- Step 3: How it works 1 -->
+  <section class="step" data-step="3">
+    <button class="back" data-back>&#8592; Back</button>
+    <span class="step-badge">How it works <b>1 / 4</b></span>
+    <h1>Join free for 14 days.</h1>
+    <p class="lead">Full access from day one, <strong>no credit card required</strong>. The $249 annual membership only charges when you make your first booking. No booking, no charge.</p>
+    <div class="visual chip-row">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#0795A0" stroke-width="2.2" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>14 days, full access</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#0795A0" stroke-width="2.2" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>No credit card</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#0795A0" stroke-width="2.2" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>Cancel anytime</span>
+    </div>
+    <button class="next-btn" data-next>Next</button>
+  </section>
+
+  <!-- Step 4: How it works 2 -->
+  <section class="step" data-step="4">
+    <button class="back" data-back>&#8592; Back</button>
+    <span class="step-badge">How it works <b>2 / 4</b></span>
+    <h1>Search like you always do.</h1>
+    <p class="lead">Type a city, pick your dates. <strong>5.6M+ hotels in 200+ countries</strong>, the same inventory you would find on any major travel platform.</p>
+    <img class="step-img" src="images/hero-app-search.png" alt="TravelHack app search results for Las Vegas hotels showing member rates of $92 and $236 per night, saving $1,514 and $602 versus public rates">
+    <button class="next-btn" data-next>Next</button>
+  </section>
+
+  <!-- Step 5: How it works 3 -->
+  <section class="step" data-step="5">
+    <button class="back" data-back>&#8592; Back</button>
+    <span class="step-badge">How it works <b>3 / 4</b></span>
+    <h1>Compare both prices on one screen.</h1>
+    <p class="lead">The member rate sits next to what public sites charge for the <strong>same hotel, room, and dates</strong>. No more five open tabs. You decide. You always decide.</p>
+    <img class="step-img" src="images/price-comparison.png" alt="Full rate comparison for a 4-night Amalfi Coast stay: public travel sites total $1,530 to $1,620 with hidden fees, the TravelHack member rate is $785 with $0 fees">
+    <button class="next-btn" data-next>Next</button>
+  </section>
+
+  <!-- Step 6: How it works 4 -->
+  <section class="step" data-step="6">
+    <button class="back" data-back>&#8592; Back</button>
+    <span class="step-badge">How it works <b>4 / 4</b></span>
+    <h1>Book with confidence.</h1>
+    <p class="lead">Instant confirmation, usually in under 30 seconds. <strong>All taxes and fees shown up front.</strong> What you see is what you pay. Travel Hack doesn't add hidden booking fees.</p>
+    <div class="confirm-card">
+      <div class="confirm-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <div>
+        <div class="confirm-title">Booking confirmed. You saved $900</div>
+        <div class="confirm-sub">4 nights · Grand Marina Resort · Member rate applied</div>
+      </div>
+    </div>
+    <button class="next-btn" data-next>Next</button>
+  </section>
+
+  <!-- Step 7: Savings Promise -->
+  <section class="step" data-step="7">
+    <button class="back" data-back>&#8592; Back</button>
+    <h1>And if you don't save?</h1>
+    <p class="lead">Then the membership is free. If member rates don't beat public prices by more than $249 in your first year, <strong>Travel Hack refunds the full membership</strong>. Calculated from your booking history, no paperwork.</p>
+    <div class="promise">
+      <div class="promise-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round" role="img" aria-label="Shield icon">
+          <path d="M12 3l7 2.5v5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5v-5L12 3z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="promise-title">Savings Promise*</div>
+        <div class="promise-sub">Save more than your annual membership. Or get it back. Many members do on their first trip.</div>
+      </div>
+    </div>
+    <button class="next-btn" data-next>One last thing</button>
+  </section>
+
+  <!-- Step 8: Final CTA -->
+  <section class="step" data-step="8">
+    <button class="back" data-back>&#8592; Back</button>
+    <h1>Spend Less, Travel More.</h1>
+    <p class="lead">Here's what changes today. You're on the inside now.</p>
+    <ul class="recap">
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span><strong>5.6M+ hotels</strong> in 200+ countries</span></li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span><strong>Up to 60% below public rates</strong> on the same rooms*</span></li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span><strong>14-day free trial</strong>, no credit card required</span></li>
+      <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span><strong>Savings Promise</strong>, or your money back</span></li>
+    </ul>
+    <a class="next-btn" href="https://travelhack.global/">Start your 14-day free trial</a>
+    <p class="btn-sub">No credit card required · Cancel anytime</p>
+    <p class="footnote">*Savings compare member rates to public rates for the same hotel, room type, and dates. Savings vary by property, dates, and demand.</p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="https://travelhack.global/">Travel Hack</a> · <a href="https://travelhack.global/privacy">Privacy Policy</a> · <a href="mailto:support@travelhack.global">Contact</a>
+</footer>
+
+<script>
+(function () {
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var fill = document.getElementById('progressFill');
+  var count = document.getElementById('stepCount');
+  var total = steps.length;
+  var current = 1;
+
+  function show(n) {
+    current = Math.min(Math.max(n, 1), total);
+    steps.forEach(function (s) {
+      s.classList.toggle('active', Number(s.dataset.step) === current);
+    });
+    fill.style.width = (current / total * 100) + '%';
+    count.textContent = current + ' / ' + total;
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('[data-next]').forEach(function (btn) {
+    btn.addEventListener('click', function () { show(current + 1); });
+  });
+  document.querySelectorAll('[data-back]').forEach(function (btn) {
+    btn.addEventListener('click', function () { show(current - 1); });
+  });
+
+  show(1);
+})();
+</script>
+
+</body>
+</html>

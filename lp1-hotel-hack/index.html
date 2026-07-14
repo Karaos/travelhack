@@ -303,6 +303,46 @@
   .cta-btn:hover { background: var(--cta-hover); }
   .cta-sub { font-size: 13px; color: #999; margin-top: 10px; }
 
+  /* Savings promise card */
+  .promise-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: linear-gradient(135deg, #f0f8f6, #ddeeec);
+    border: 1px solid #b9dcd8;
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin: 8px 0 28px;
+  }
+  .promise-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 28%, #4db3ac, #1d6f80);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .promise-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #1c2430;
+    letter-spacing: -0.3px;
+  }
+  .promise-text {
+    font-size: 16px;
+    color: #7c8794;
+    margin-top: 5px;
+    line-height: 1.45;
+  }
+  @media (max-width: 520px) {
+    .promise-card { gap: 14px; padding: 20px 18px; }
+    .promise-icon { width: 46px; height: 46px; }
+    .promise-title { font-size: 18px; }
+    .promise-text { font-size: 14px; }
+  }
+
   /* Trust bar */
   .trust {
     border-top: 1px solid var(--rule);
@@ -413,18 +453,17 @@
 
   <p>Over a year of normal travel, that adds up fast. Members report saving anywhere from a weekend getaway's worth to <strong>thousands of dollars annually</strong> — and frequent travelers and digital nomads routinely save $500–$1,500 a month on accommodation alone.</p>
 
-  <div class="shot">
-    <svg viewBox="0 0 620 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TravelHack savings summary notification">
-      <rect width="620" height="190" rx="14" fill="#ffffff"/>
-      <rect x="24" y="24" width="572" height="142" rx="12" fill="#f5f8fa" stroke="#e2e8ec"/>
-      <circle cx="80" cy="95" r="30" fill="#0a8f6c"/>
-      <path d="M66 95 L76 106 L96 84" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="132" y="80" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#141414">Booking confirmed — you saved $900</text>
-      <text x="132" y="106" font-family="Arial, sans-serif" font-size="14" fill="#888">4 nights · Grand Marina Resort · Member rate applied</text>
-      <text x="132" y="136" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0276b1">Total saved this year: $3,240</text>
-    </svg>
+  <div class="promise-card">
+    <div class="promise-icon">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3.2l6.8 2.4v5c0 4.5-2.9 7.9-6.8 9.2-3.9-1.3-6.8-4.7-6.8-9.2v-5L12 3.2z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="promise-title">Savings Promise*</div>
+      <div class="promise-text">Save more than your annual membership. Or get it back. Many members do on their first trip.</div>
+    </div>
   </div>
-  <p class="caption">The app tracks what you've saved on every booking.</p>
 
   <p>And here's the part that removes the risk entirely: TravelHack comes with a <strong>14-day free trial — no credit card required</strong> — plus a Savings Promise. If your savings don't cover the membership, they refund it. There's literally no scenario where you come out behind.</p>
 

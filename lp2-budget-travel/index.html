@@ -149,6 +149,46 @@
     margin-top: 8px;
   }
 
+  /* Savings promise card */
+  .promise-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: linear-gradient(135deg, #f0f8f6, #ddeeec);
+    border: 1px solid #b9dcd8;
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin: 8px 0 28px;
+  }
+  .promise-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 28%, #4db3ac, #1d6f80);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .promise-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #1c2430;
+    letter-spacing: -0.3px;
+  }
+  .promise-text {
+    font-size: 16px;
+    color: #7c8794;
+    margin-top: 5px;
+    line-height: 1.45;
+  }
+  @media (max-width: 520px) {
+    .promise-card { gap: 14px; padding: 20px 18px; }
+    .promise-icon { width: 46px; height: 46px; }
+    .promise-title { font-size: 18px; }
+    .promise-text { font-size: 14px; }
+  }
+
   /* Trust bar */
   .trust {
     border-top: 1px solid var(--rule);
@@ -246,6 +286,18 @@
   <p>This is why traveling on a budget doesn't have to mean hostels, red-eyes, and instant noodles. When the same 4-star room costs half as much, the trip doesn't need to get cheaper — the booking does. The money saved on rooms is what pays for the next trip.</p>
 
   <p>And trying it costs nothing: there's a <strong>14-day free trial with no credit card required</strong>, plus a Savings Promise — if the membership doesn't save you more than it costs, they refund it.</p>
+
+  <div class="promise-card">
+    <div class="promise-icon">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3.2l6.8 2.4v5c0 4.5-2.9 7.9-6.8 9.2-3.9-1.3-6.8-4.7-6.8-9.2v-5L12 3.2z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="promise-title">Savings Promise*</div>
+      <div class="promise-text">Save more than your annual membership. Or get it back. Many members do on their first trip.</div>
+    </div>
+  </div>
 
   <p>So if travel feels out of reach this year, don't cut the trip. Cut the rate. You can try TravelHack free <a href="https://travelhack.global/" rel="sponsored">HERE</a>.</p>
 

@@ -154,20 +154,46 @@
     .hiw-mobile { display: block; margin: 6px 0 16px; }
   }
 
-  /* Savings notification mockup */
-  .shot {
-    background: var(--cream);
-    border-radius: 14px;
-    padding: 24px;
+  /* Savings Promise banner */
+  .promise {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: linear-gradient(100deg, #ddeeec, #edf6f4);
+    border: 1px solid #b5d9d6;
+    border-radius: 18px;
+    padding: 24px 28px;
     margin: 8px 0 26px;
   }
-  .shot svg { display: block; width: 100%; height: auto; }
-  .caption {
-    text-align: center;
-    font-size: 13px;
-    color: #8b8375;
-    margin-top: -16px;
-    margin-bottom: 28px;
+  .promise-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(145deg, #4aa0ad, #176274);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .promise-icon svg { width: 26px; height: 26px; }
+  .promise-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .promise-sub {
+    font-size: 15.5px;
+    color: #7d8b99;
+    line-height: 1.5;
+  }
+  @media (max-width: 520px) {
+    .promise { gap: 16px; padding: 18px 20px; }
+    .promise-icon { width: 48px; height: 48px; }
+    .promise-icon svg { width: 22px; height: 22px; }
+    .promise-title { font-size: 18px; }
+    .promise-sub { font-size: 14.5px; }
   }
 
   /* CTA button */
@@ -323,18 +349,17 @@
 
   <p>Over a year of normal travel, that adds up fast. Members report saving anywhere from a weekend getaway's worth to <strong>thousands of dollars annually</strong>. Frequent travelers and digital nomads routinely save $500 to $1,500 a month on accommodation alone.</p>
 
-  <div class="shot">
-    <svg viewBox="0 0 620 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TravelHack savings summary notification">
-      <rect width="620" height="190" rx="14" fill="#ffffff"/>
-      <rect x="24" y="24" width="572" height="142" rx="12" fill="#faf7f1" stroke="#e8e2d6"/>
-      <circle cx="80" cy="95" r="30" fill="#0795A0"/>
-      <path d="M66 95 L76 106 L96 84" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="132" y="80" font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="600" fill="#022334">Booking confirmed. You saved $900</text>
-      <text x="132" y="106" font-family="Poppins, Arial, sans-serif" font-size="14" fill="#6d6353">4 nights · Grand Marina Resort · Member rate applied</text>
-      <text x="132" y="136" font-family="Poppins, Arial, sans-serif" font-size="14" font-weight="600" fill="#045667">Total saved this year: $3,240</text>
-    </svg>
+  <div class="promise">
+    <div class="promise-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round" role="img" aria-label="Shield icon">
+        <path d="M12 3l7 2.5v5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5v-5L12 3z"/>
+      </svg>
+    </div>
+    <div class="promise-text">
+      <div class="promise-title">Savings Promise*</div>
+      <div class="promise-sub">Save more than your annual membership. Or get it back. Many members do on their first trip.</div>
+    </div>
   </div>
-  <p class="caption">The app tracks what you've saved on every booking.</p>
 
   <p>And here's the part that removes the risk entirely: Travel Hack comes with a <strong>14-day free trial (no credit card required)</strong> plus a Savings Promise. If your savings don't cover the membership, they refund it. There's literally no scenario where you come out behind.</p>
 

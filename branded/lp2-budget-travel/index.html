@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Travel on a Budget</title>
+<meta name="description" content="Traveling more doesn't require earning more. Here's the one booking habit that cuts the biggest cost of any trip, without downgrading the trip itself.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #022334;
+    --deep-teal: #045667;
+    --teal: #0795A0;
+    --sunset: #FA904E;
+    --cream: #F0E7D8;
+    --ink: #022334;
+    --ink-soft: #3b4d5c;
+    --rule: #e8e2d6;
+    --bg-soft: #faf7f1;
+    --serif: "Iowan Old Style", Charter, Georgia, "Times New Roman", serif;
+    --sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Floating masthead */
+  .masthead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    padding: 12px 20px;
+    box-shadow: 0 2px 12px rgba(2,35,52,0.25);
+  }
+  .masthead-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo svg { width: 26px; height: 32px; flex-shrink: 0; }
+  .logo .word {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo .name {
+    color: #fff;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .logo .name em { font-style: normal; font-weight: 400; }
+  .logo .name sup { font-size: 8px; font-weight: 400; vertical-align: super; }
+  .logo .tag {
+    color: rgba(240,231,216,0.75);
+    font-size: 7.5px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    margin-top: 3px;
+  }
+  .masthead .banner-cta {
+    background: var(--teal);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+  .masthead .banner-cta:hover { background: var(--deep-teal); }
+  @media (max-width: 520px) {
+    .logo .name { font-size: 18px; }
+    .logo svg { width: 22px; height: 27px; }
+    .masthead .banner-cta { font-size: 12px; padding: 9px 14px; }
+  }
+
+  /* Article column */
+  .article {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 40px;
+  }
+  .kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .byline {
+    color: #8b8375;
+    font-size: 13.5px;
+    margin-bottom: 28px;
+  }
+  .article p {
+    font-size: 17.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .article p strong { color: var(--navy); font-weight: 600; }
+  .article a { color: var(--deep-teal); font-weight: 600; text-decoration: none; border-bottom: 2px solid rgba(7,149,160,0.35); }
+  .article a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+  h2 {
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    color: var(--navy);
+    margin: 34px 0 16px;
+  }
+
+  /* Article images */
+  .hero-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin: 6px 0 10px;
+  }
+  .caption {
+    text-align: center;
+    font-size: 13px;
+    color: #8b8375;
+    margin: 0 0 28px;
+  }
+
+  /* CTA button */
+  .cta-wrap { text-align: center; margin: 34px 0; }
+  .cta-btn {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff !important;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 16px 38px;
+    border-radius: 12px;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 6px 18px rgba(7,149,160,0.3);
+    transition: background .15s;
+  }
+  .cta-btn:hover { background: var(--deep-teal); }
+  .cta-sub { font-size: 13px; color: #8b8375; margin-top: 12px; }
+
+  /* Review stars */
+  .stars-block { text-align: center; margin: 4px 0 10px; }
+  .stars-block .stars {
+    color: var(--sunset);
+    font-size: 30px;
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+  .stars-block .stars-note {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    margin-top: 10px;
+  }
+
+  /* Trust bar */
+  .trust {
+    background: var(--cream);
+    display: flex;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
+    padding: 34px 20px;
+    margin: 24px 0 0;
+    text-align: center;
+  }
+  .trust .stat b {
+    display: block;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .trust .stat b.txt { font-family: var(--sans); font-weight: 700; letter-spacing: -0.3px; }
+  .trust .stat span { font-size: 12.5px; color: #6d6353; }
+
+  /* Press mentions */
+  .press {
+    text-align: center;
+    padding: 34px 20px 30px;
+  }
+  .press .press-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.2px;
+    color: #b3aa99;
+  }
+  .press-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    color: #8b8375;
+  }
+  .press-logos .p-forbes { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 23px; }
+  .press-logos .p-fortune { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 18px; letter-spacing: 3px; }
+  .press-logos .p-usat { font-weight: 700; font-size: 18px; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 7px; }
+  .press-logos .p-usat i { width: 16px; height: 16px; border-radius: 50%; background: #8b8375; display: inline-block; }
+  .press-logos .p-mash { font-weight: 700; font-size: 21px; letter-spacing: -0.5px; }
+  @media (max-width: 520px) { .press-logos { gap: 22px; } }
+
+  footer {
+    background: var(--navy);
+    text-align: center;
+    padding: 34px 20px 44px;
+    font-size: 12px;
+    color: rgba(240,231,216,0.65);
+    line-height: 1.9;
+  }
+  footer .foot-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  footer a { color: rgba(240,231,216,0.9); }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 29px; }
+    .article p { font-size: 16px; }
+    .trust { gap: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="logo" href="https://travelhack.global/">
+      <svg viewBox="0 0 26 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TravelHack logo">
+        <path d="M13 0C5.82 0 0 5.82 0 13c0 9.75 13 19 13 19s13-9.25 13-19C26 5.82 20.18 0 13 0z" fill="#ffffff"/>
+        <circle cx="13" cy="10.5" r="4.1" fill="#022334"/>
+        <path d="M13 12.5 L9.4 21.5 L16.6 21.5 Z" fill="#022334"/>
+      </svg>
+      <span class="word">
+        <span class="name">Travel<em>Hack</em><sup>™</sup></span>
+        <span class="tag">Spend Less, Travel More</span>
+      </span>
+    </a>
+    <a class="banner-cta" href="https://travelhack.global/">See Member Prices</a>
+  </div>
+</header>
+
+<main class="article">
+  <p class="kicker">Travel &nbsp;·&nbsp; 3 min read</p>
+  <h1>How to Travel on a Budget</h1>
+  <p class="byline">Tourist prices are optional.</p>
+
+  <p>What if half (or even MORE) of the accommodation price would <strong>magically disappear?</strong></p>
+
+  <img class="hero-img" src="images/hero-airplane-window.png" alt="View from an airplane window: the wing over a sea of clouds at sunset" style="margin-bottom: 28px;">
+
+  <p>But the price of a trip isn't as fixed as it looks. The biggest line item in almost any travel budget is accommodation, often close to half the cost of the whole trip. Flights get all the attention, but the hotel bill is where travel budgets quietly die. Which makes it the single best place to cut, without downgrading the trip itself.</p>
+
+  <p>Here's the part most travelers never find out: hotels sell the <strong>exact same rooms at very different prices</strong> depending on the channel. The rate on mainstream travel sites is the most expensive one. Beneath it sits a layer of private, members-only pricing that hotels use to fill rooms without publicly discounting.</p>
+
+  <p>That's the layer a clever app called <a href="https://travelhack.global/">Travel Hack</a> unlocks. It's a membership that plugs you straight into those private channels: <strong>5.6 million properties in 200+ countries</strong>, often up to 60% below the public price.</p>
+
+  <h2>Here's how it works:</h2>
+
+  <p>You search exactly like you would on any booking site. Next to each hotel, the app shows what the public sites charge and what members pay: same room, same dates. Here's a typical Las Vegas search:</p>
+
+  <img class="hero-img" src="images/hero-app-search.png" alt="TravelHack app search results for Las Vegas hotels showing member rates of $92 and $236 per night, saving $1,514 and $602 versus public rates">
+  <p class="caption">Six nights near the Strip: $92/night, $1,514 less than the public rate for the same room.</p>
+
+  <p>That's not a one-off promo. The gap shows up on almost every search, because member rates exist on almost every property:</p>
+
+  <img class="hero-img" src="images/price-comparison.png" alt="Price comparison: other providers total up to $1,620 with hidden fees, TravelHack $785 with $0 fees">
+  <p class="caption">The same stay, priced across mainstream travel sites, hidden fees included.</p>
+
+  <p>This is why traveling on a budget doesn't have to mean hostels, red-eyes, and instant noodles. When the same 4-star room costs half as much, the trip doesn't need to get cheaper. The booking does. The money saved on rooms is what pays for the next trip.</p>
+
+  <p>And trying it costs nothing: there's a <strong>14-day free trial with no credit card required</strong>, plus a Savings Promise. If the membership doesn't save you more than it costs, they refund it.</p>
+
+  <p>So if travel feels out of reach this year, don't cut the trip. Cut the rate. You can try Travel Hack free <a href="https://travelhack.global/">here</a>.</p>
+
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://travelhack.global/">Start your 14-day free trial</a>
+    <p class="cta-sub">No credit card required · Cancel anytime</p>
+  </div>
+
+  <div class="stars-block">
+    <div class="stars">★★★★★</div>
+    <p class="stars-note">Loved by thousands of members saving on every trip</p>
+  </div>
+</main>
+
+<section class="trust">
+  <div class="stat"><b>5.6M+</b><span>properties worldwide</span></div>
+  <div class="stat"><b>200+</b><span>countries covered</span></div>
+  <div class="stat"><b>Up to 60%</b><span>below public rates*</span></div>
+  <div class="stat"><b class="txt">Savings Promise</b><span>or your money back</span></div>
+</section>
+
+<section class="press">
+  <div class="press-label">As seen in</div>
+  <div class="press-logos">
+    <span class="p-forbes">Forbes</span>
+    <span class="p-fortune">FORTUNE</span>
+    <span class="p-usat"><i></i>USA TODAY</span>
+    <span class="p-mash">mashable</span>
+  </div>
+</section>
+
+<footer>
+  <p class="foot-tagline">Spend Less, Travel More.</p>
+  *Savings compare member rates to public rates for the same hotel, room type, and dates. Savings vary by property, dates, and demand.<br>
+  Transparent member pricing. No hidden surprises.<br>
+  <a href="https://travelhack.global/">Travel Hack</a> · <a href="https://travelhack.global/privacy">Privacy Policy</a> · <a href="mailto:support@travelhack.global">Contact</a>
+</footer>
+
+</body>
+</html>

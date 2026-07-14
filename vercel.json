@@ -1,9 +1,7 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/", "destination": "/lp1-hotel-hack/", "permanent": false }
-  ],
-  "rewrites": [
-    { "source": "/branded/:path*", "destination": "/branded-not-served-here" }
+    { "source": "/", "destination": "/lp1-hotel-hack/", "permanent": false },
+    { "source": "/branded/:path*", "destination": "/lp1-hotel-hack/", "permanent": false }
   ]
 }

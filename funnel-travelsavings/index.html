@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelSavingsTools — See If You Qualify for Member-Only Hotel Rates</title>
+<meta name="description" content="Answer 4 quick questions to see if you qualify for private member-only hotel rates — up to 60% below public booking sites.">
+<link rel="icon" type="image/svg+xml" href="favicon-tst.svg">
+<style>
+  :root {
+    --teal: #0e7c86;
+    --teal-dark: #0a5f68;
+    --navy: #0f2a3d;
+    --green: #16a34a;
+    --ink: #16202b;
+    --ink-soft: #47525e;
+    --muted: #8a93a0;
+    --rule: #e6e9ec;
+    --bg: #f4f7f9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Masthead */
+  .masthead {
+    background: #fff;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 20px;
+  }
+  .masthead-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: var(--navy);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo span { color: var(--teal); }
+  .partner-chip {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  /* Card shell */
+  .shell {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 34px 16px 40px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(15, 42, 61, 0.08);
+    max-width: 560px;
+    width: 100%;
+    padding: 38px 32px 34px;
+    text-align: center;
+  }
+  @media (max-width: 480px) { .card { padding: 28px 18px 26px; } }
+
+  /* Progress bar */
+  .progress { height: 6px; background: #e6eef0; border-radius: 999px; margin-bottom: 28px; overflow: hidden; display: none; }
+  .progress.on { display: block; }
+  .progress i {
+    display: block; height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--teal), #35a7a0);
+    border-radius: 999px;
+    transition: width .35s ease;
+  }
+
+  .step { display: none; animation: fade .3s ease; }
+  .step.on { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--teal);
+    background: #e5f4f3;
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  h1 em { font-style: normal; color: var(--teal); }
+  .sub {
+    font-size: 16.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 26px;
+  }
+  .q-title { font-size: 23px; letter-spacing: -0.4px; margin-bottom: 20px; }
+
+  /* Buttons */
+  .btn {
+    display: block;
+    width: 100%;
+    background: var(--teal);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 17px 20px;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, transform .05s;
+  }
+  .btn:hover { background: var(--teal-dark); }
+  .btn:active { transform: scale(0.99); }
+  .btn-note { font-size: 12.5px; color: var(--muted); margin-top: 12px; }
+
+  .opts { display: grid; gap: 12px; }
+  .opt {
+    border: 2px solid var(--rule);
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px 18px;
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .12s, background .12s;
+  }
+  .opt:hover { border-color: var(--teal); background: #f2fafa; }
+
+  /* Landing bullets */
+  .land-points { text-align: left; margin: 0 auto 26px; max-width: 420px; display: grid; gap: 12px; }
+  .land-points div { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--ink-soft); line-height: 1.4; }
+  .land-points svg { flex-shrink: 0; margin-top: 2px; }
+
+  /* Analyzing */
+  .spinner {
+    width: 52px; height: 52px;
+    border: 5px solid #e0edee;
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    margin: 6px auto 24px;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .checks { text-align: left; max-width: 400px; margin: 0 auto; display: grid; gap: 14px; }
+  .checks div { display: flex; gap: 10px; align-items: center; font-size: 15.5px; color: var(--muted); font-weight: 600; opacity: 0.35; transition: opacity .3s; }
+  .checks div.done { opacity: 1; color: var(--ink-soft); }
+  .checks .tick { width: 20px; height: 20px; border-radius: 50%; background: #e6eef0; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 800; }
+  .checks div.done .tick { background: var(--green); }
+
+  /* Result */
+  .qualify-badge {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--green);
+    margin: 0 auto 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .estimate {
+    background: #eef9f3;
+    border: 1px solid #bfe3cd;
+    border-radius: 14px;
+    padding: 18px 16px;
+    margin: 0 0 22px;
+  }
+  .estimate b { display: block; font-size: 36px; color: var(--green); letter-spacing: -1px; }
+  .estimate span { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
+  .result-points { text-align: left; margin: 0 auto 24px; max-width: 430px; display: grid; gap: 11px; }
+  .result-points div { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--ink-soft); line-height: 1.4; }
+  .result-points svg { flex-shrink: 0; margin-top: 2px; }
+  .stars { color: #fbbf24; font-size: 22px; letter-spacing: 4px; margin-bottom: 4px; }
+  .stars-note { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+
+  footer {
+    text-align: center;
+    padding: 18px 20px 30px;
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  footer a { color: #7c8794; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="logo" href="#">TravelSavings<span>Tools</span></a>
+    <span class="partner-chip">Partner Offer</span>
+  </div>
+</header>
+
+<div class="shell">
+  <div class="card">
+    <div class="progress" id="progress"><i id="progressBar"></i></div>
+
+    <!-- Step 0: Landing -->
+    <section class="step on" data-step="0">
+      <span class="eyebrow">Free to try &middot; Takes under a minute</span>
+      <h1>Stop Overpaying for Hotels. See If You Qualify for <em>Member-Only Rates</em>.</h1>
+      <p class="sub">Hotels sell the same rooms up to 60% cheaper through private channels most travelers never see. Answer 4 quick questions to check your eligibility.</p>
+      <div class="land-points">
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Same hotels, same rooms — lower prices</div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> 5.6M+ properties in 180+ countries</div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Free 14-day trial — no credit card required</div>
+      </div>
+      <button class="btn" onclick="go(1)">CONTINUE &rarr;</button>
+      <p class="btn-note">&#128274; Takes you to a secure eligibility check</p>
+    </section>
+
+    <!-- Step 1 -->
+    <section class="step" data-step="1">
+      <h2 class="q-title">How often do you travel?</h2>
+      <div class="opts">
+        <button class="opt" onclick="answer('trips', 10, 2)">1&ndash;2 trips a year</button>
+        <button class="opt" onclick="answer('trips', 24, 2)">3&ndash;5 trips a year</button>
+        <button class="opt" onclick="answer('trips', 45, 2)">6+ trips a year</button>
+        <button class="opt" onclick="answer('trips', 120, 2)">I basically live on the road</button>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="step" data-step="2">
+      <h2 class="q-title">Where do you usually book your stays?</h2>
+      <div class="opts">
+        <button class="opt" onclick="answer('channel', 0, 3)">Booking.com / Expedia / Hotels.com</button>
+        <button class="opt" onclick="answer('channel', 0, 3)">Directly with the hotel</button>
+        <button class="opt" onclick="answer('channel', 0, 3)">Airbnb / vacation rentals</button>
+        <button class="opt" onclick="answer('channel', 0, 3)">Wherever is cheapest that day</button>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="step" data-step="3">
+      <h2 class="q-title">What do you typically spend per night?</h2>
+      <div class="opts">
+        <button class="opt" onclick="answer('spend', 60, 4)">Under $80</button>
+        <button class="opt" onclick="answer('spend', 115, 4)">$80 &ndash; $150</button>
+        <button class="opt" onclick="answer('spend', 200, 4)">$150 &ndash; $250</button>
+        <button class="opt" onclick="answer('spend', 300, 4)">$250+</button>
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="step" data-step="4">
+      <h2 class="q-title">Would you book nicer hotels if the same room cost about half as much?</h2>
+      <div class="opts">
+        <button class="opt" onclick="answer('upgrade', 0, 5)">Yes — obviously</button>
+        <button class="opt" onclick="answer('upgrade', 0, 5)">I'd travel more often instead</button>
+        <button class="opt" onclick="answer('upgrade', 0, 5)">Both, honestly</button>
+      </div>
+    </section>
+
+    <!-- Step 5: Analyzing -->
+    <section class="step" data-step="5">
+      <h2 class="q-title">Checking your eligibility&hellip;</h2>
+      <div class="spinner"></div>
+      <div class="checks">
+        <div id="chk1"><span class="tick">&#10003;</span> Checking member-rate availability in your region</div>
+        <div id="chk2"><span class="tick">&#10003;</span> Matching against 5.6M+ properties worldwide</div>
+        <div id="chk3"><span class="tick">&#10003;</span> Calculating your personal savings estimate</div>
+      </div>
+    </section>
+
+    <!-- Step 6: Result -->
+    <section class="step" data-step="6">
+      <div class="qualify-badge">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h1>Good News &mdash; You Qualify!</h1>
+      <p class="sub">Based on your answers, member-only rates are available for travelers like you. Here's what that could mean for your budget:</p>
+      <div class="estimate">
+        <b id="estimateVal">$1,000+</b>
+        <span>estimated yearly savings on accommodation*</span>
+      </div>
+      <div class="result-points">
+        <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Up to 60% below public rates on 5.6M+ properties</div>
+        <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> 14-day free trial — no credit card required</div>
+        <div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Savings Promise: save more than the membership costs, or get it back</div>
+      </div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="stars-note">Loved by thousands of members saving on every trip</p>
+      <a class="btn" href="https://travelhack.global/" rel="sponsored">CLAIM YOUR FREE TRIAL &rarr;</a>
+      <p class="btn-note">&#128274; You'll be taken to TravelHack's secure site</p>
+    </section>
+  </div>
+</div>
+
+<footer>
+  This eligibility check is promotional and does not guarantee specific savings. *Estimate based on your answers and typical member-rate discounts; actual savings vary by property, dates, and demand.<br>
+  TravelSavingsTools is an independent publication. This page contains a partner offer from <a href="https://travelhack.global/" rel="sponsored">TravelHack</a>. &middot; <a href="#">Privacy Policy</a> &middot; <a href="mailto:contact@travelsavingstools.com">Contact</a>
+</footer>
+
+<script>
+  var answers = {};
+  var TOTAL_Q = 4;
+
+  function show(n) {
+    document.querySelectorAll('.step').forEach(function (s) {
+      s.classList.toggle('on', s.dataset.step == n);
+    });
+    var prog = document.getElementById('progress');
+    var bar = document.getElementById('progressBar');
+    if (n >= 1 && n <= 4) {
+      prog.classList.add('on');
+      bar.style.width = ((n - 1) / TOTAL_Q * 100) + '%';
+      setTimeout(function () { bar.style.width = (n / TOTAL_Q * 100) + '%'; }, 60);
+    } else {
+      prog.classList.remove('on');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function go(n) { show(n); }
+
+  function answer(key, val, next) {
+    answers[key] = val;
+    if (next === 5) { startAnalysis(); } else { show(next); }
+  }
+
+  function startAnalysis() {
+    show(5);
+    setTimeout(function () { document.getElementById('chk1').classList.add('done'); }, 700);
+    setTimeout(function () { document.getElementById('chk2').classList.add('done'); }, 1500);
+    setTimeout(function () { document.getElementById('chk3').classList.add('done'); }, 2300);
+    setTimeout(function () {
+      var nights = answers.trips || 24;
+      var spend = answers.spend || 115;
+      var est = Math.round(nights * spend * 0.45 / 50) * 50;
+      if (est < 300) { est = 300; }
+      document.getElementById('estimateVal').textContent = '$' + est.toLocaleString('en-US') + '+';
+      show(6);
+    }, 3100);
+  }
+</script>
+
+</body>
+</html>
